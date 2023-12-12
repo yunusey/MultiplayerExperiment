@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuf2jgmqhrjat"]
+
+[ext_resource type="Script" path="res://Interface/Interface.gd" id="1_8dd7u"]
+
+[node name="Interface" type="CanvasLayer"]
+script = ExtResource("1_8dd7u")
+username_color = Color(0, 0.384314, 0.411765, 1)
+
+[node name="LoginScreen" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -494.5
+offset_right = 560.0
+offset_bottom = 494.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Username" type="TextEdit" parent="LoginScreen"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+placeholder_text = "Username"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="ServerCredentialsContainer" type="HBoxContainer" parent="LoginScreen"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Server" type="TextEdit" parent="LoginScreen/ServerCredentialsContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "127.0.0.1"
+placeholder_text = "Server"
+scroll_fit_content_height = true
+
+[node name="Port" type="TextEdit" parent="LoginScreen/ServerCredentialsContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "25000"
+placeholder_text = "Server"
+scroll_fit_content_height = true
+
+[node name="HostButton" type="Button" parent="LoginScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "Host Server"
+
+[node name="ConnectButton" type="Button" parent="LoginScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "Connect Server"
+
+[node name="LobbyScreenScroll" type="ScrollContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -354.0
+offset_top = 50.0
+offset_right = 422.0
+offset_bottom = 768.0
+grow_horizontal = 2
+horizontal_scroll_mode = 0
+
+[node name="LobbyScreen" type="VBoxContainer" parent="LobbyScreenScroll"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[connection signal="pressed" from="LoginScreen/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="LoginScreen/ConnectButton" to="." method="_on_connect_button_pressed"]

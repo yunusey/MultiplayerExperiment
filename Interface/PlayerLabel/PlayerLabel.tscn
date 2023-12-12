@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://eypq27ou0plq"]
+
+[ext_resource type="Script" path="res://Interface/PlayerLabel/PlayerLabel.gd" id="1_g07yj"]
+[ext_resource type="StyleBox" uid="uid://cbqdvtmwpyum4" path="res://Interface/PlayerLabel/PlayerLabel.tres" id="1_yuahh"]
+[ext_resource type="Shader" path="res://Interface/PlayerLabel/TextureRect.gdshader" id="2_8mp8a"]
+[ext_resource type="Texture2D" uid="uid://7h8d854o5jv4" path="res://Externals/CheckboxIcons/Checked.png" id="2_go01k"]
+[ext_resource type="Texture2D" uid="uid://blilqv6upqxwp" path="res://Externals/CheckboxIcons/Unchecked.png" id="3_f7rtt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jic0e"]
+resource_local_to_scene = true
+shader = ExtResource("2_8mp8a")
+shader_parameter/checked_color = Color(0, 1, 0, 1)
+shader_parameter/unchecked_color = Color(1, 0, 0, 1)
+shader_parameter/situation = false
+shader_parameter/checked = ExtResource("2_go01k")
+shader_parameter/unchecked = ExtResource("3_f7rtt")
+
+[node name="PlayerLabel" type="HBoxContainer"]
+offset_right = 761.0
+offset_bottom = 167.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_g07yj")
+
+[node name="LabelContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="LabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = ExtResource("1_yuahh")
+text = "Something"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReadyStatus" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_jic0e")
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("3_f7rtt")
+expand_mode = 2
+stretch_mode = 4
