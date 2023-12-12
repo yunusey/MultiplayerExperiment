@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdkwy05f333bn"]
+
+[ext_resource type="PackedScene" uid="uid://dpmc8ov2t756s" path="res://Background/Background.tscn" id="1_65xq0"]
+[ext_resource type="Script" path="res://Main.gd" id="1_vyv0y"]
+[ext_resource type="PackedScene" uid="uid://cuf2jgmqhrjat" path="res://Interface/Interface.tscn" id="2_ad0ep"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_vyv0y")
+
+[node name="Background" parent="." instance=ExtResource("1_65xq0")]
+
+[node name="Interface" parent="." instance=ExtResource("2_ad0ep")]
+
+[connection signal="change_local_ready_status" from="Interface" to="." method="_on_interface_change_local_ready_status"]
+[connection signal="request_lobby" from="Interface" to="." method="_on_interface_request_lobby"]

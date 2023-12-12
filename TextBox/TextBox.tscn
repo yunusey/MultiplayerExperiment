@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://bbd6i7c88xlj"]
+
+[ext_resource type="Script" path="res://TextBox/TextBox.gd" id="1_b75uw"]
+[ext_resource type="Shader" path="res://TextBox/TextBox.gdshader" id="1_j85ec"]
+[ext_resource type="Shader" path="res://TextBox/Label.gdshader" id="2_j308d"]
+
+[sub_resource type="Gradient" id="Gradient_jvpav"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0gxsb"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ni6qn"]
+color_ramp = SubResource("Gradient_jvpav")
+noise = SubResource("FastNoiseLite_0gxsb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8nwe"]
+shader = ExtResource("1_j85ec")
+shader_parameter/clipping_length = 0.5
+shader_parameter/edge_color = Color(0.643137, 0.239216, 0, 1)
+shader_parameter/inside_color = Color(0, 0, 0, 1)
+shader_parameter/color_influence = 7.082
+shader_parameter/speed = 3.986
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ni6qn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_78f02"]
+size = Vector2(600, 450)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6dotf"]
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i31ay"]
+seamless = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_6dotf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixud7"]
+shader = ExtResource("2_j308d")
+shader_parameter/speed = 0.044
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_i31ay")
+
+[node name="TextBox" type="Node2D"]
+script = ExtResource("1_b75uw")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+material = SubResource("ShaderMaterial_g8nwe")
+mesh = SubResource("QuadMesh_78f02")
+
+[node name="Label" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_ixud7")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -11.5
+offset_right = 24.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 90
+theme_override_font_sizes/italics_font_size = 90
+theme_override_font_sizes/bold_italics_font_size = 90
+theme_override_font_sizes/mono_font_size = 90
+bbcode_enabled = true
+text = "[color=#ffffff]template[/color]"
+fit_content = true
+autowrap_mode = 0

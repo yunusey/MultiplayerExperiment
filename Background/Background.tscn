@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpmc8ov2t756s"]
+
+[ext_resource type="Shader" path="res://Background/Background.gdshader" id="1_m7i61"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jj8tf"]
+shader = ExtResource("1_m7i61")
+shader_parameter/color = Color(0, 0.282353, 0.203922, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_wcdvk"]
+size = Vector2(1920, 1080)
+
+[node name="Background" type="MeshInstance2D"]
+material = SubResource("ShaderMaterial_jj8tf")
+position = Vector2(960, 540)
+mesh = SubResource("QuadMesh_wcdvk")
