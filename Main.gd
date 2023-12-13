@@ -25,9 +25,28 @@ func _on_interface_request_lobby():
 	if multiplayer.is_server():
 		print("Server created, waiting for players")
 
+func _on_interface_request_send_message(message: String):
+	# This function is called when the local player wants to send
+	# a message to the server.
+	if multiplayer.is_server():
+		# If the sender is the server, we send the message to everyone.
+		notify_player_message(message, multiplayer.get_unique_id())
+	else:
+		# If the sender is not the server, we send the message to the server.
+		notify_player_message.rpc_id(1, message, multiplayer.get_unique_id())
+
+func _on_interface_change_local_ready_status(in_is_ready: bool):
+	# This function is called when the local player changes its ready status
+	# (by clicking space on the interface).
+	if multiplayer.is_server():
+		# If the sender is the server, we send the ready status to everyone.
+		notify_player_status(in_is_ready, multiplayer.get_unique_id())
+	else:
+		# If the sender is not the server, we send the ready status to the server.
+		notify_player_status.rpc_id(1, in_is_ready, multiplayer.get_unique_id())
+
 @rpc("any_peer")
 func send_player_info(username: String, in_is_ready: bool, id: int):
-
 	# This method gets called each time a new player sends its
 	# info to the server. It will be received by all the players
 	# to add them to the local lobby.
@@ -55,15 +74,15 @@ func notify_player_status(is_ready: bool, id: int):
 		# the server changed its ready status.
 		notify_player_status.rpc(is_ready, id)
 
-func _on_interface_change_local_ready_status(in_is_ready: bool):
-	# This function is called when the local player changes its ready status
-	# (by clicking space on the interface).
+@rpc("any_peer")
+func notify_player_message(message: String, id: int):
+	# Change the ready status for the player with the given id.
+	$Interface.add_message(message, id)
+
 	if multiplayer.is_server():
-		# If the sender is the server, we send the ready status to everyone.
-		notify_player_status(in_is_ready, multiplayer.get_unique_id())
-	else:
-		# If the sender is not the server, we send the ready status to the server.
-		notify_player_status.rpc_id(1, in_is_ready, multiplayer.get_unique_id())
+		# Notify the other players that the player that notified
+		# the server changed its ready status.
+		notify_player_message.rpc(message, id)
 
 # These functions are for the networking notifications.
 # Not much to explain here.
@@ -83,3 +102,5 @@ func failed_connect(id: int):
 
 func disconnected_from_server(id: int):
 	print("Disconnected from server " + str(id))
+
+
