@@ -13,3 +13,4 @@ script = ExtResource("1_vyv0y")
 
 [connection signal="change_local_ready_status" from="Interface" to="." method="_on_interface_change_local_ready_status"]
 [connection signal="request_lobby" from="Interface" to="." method="_on_interface_request_lobby"]
+[connection signal="request_send_message" from="Interface" to="." method="_on_interface_request_send_message"]

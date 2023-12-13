@@ -60,23 +60,55 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 150
 text = "Connect Server"
 
-[node name="LobbyScreenScroll" type="ScrollContainer" parent="."]
+[node name="LobbyScreenControl" type="Control" parent="."]
 visible = false
-custom_minimum_size = Vector2(500, 0)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -354.0
-offset_top = 50.0
-offset_right = 422.0
-offset_bottom = 768.0
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyScreenScroll" type="ScrollContainer" parent="LobbyScreenControl"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = 826.0
+offset_bottom = 818.0
 horizontal_scroll_mode = 0
 
-[node name="LobbyScreen" type="VBoxContainer" parent="LobbyScreenScroll"]
+[node name="LobbyScreen" type="VBoxContainer" parent="LobbyScreenControl/LobbyScreenScroll"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
+[node name="MessagesContainer" type="VBoxContainer" parent="LobbyScreenControl"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -800.0
+offset_bottom = 773.0
+grow_horizontal = 0
+
+[node name="Messages" type="RichTextLabel" parent="LobbyScreenControl/MessagesContainer"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 90
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+text = "[center][b]Messages[/b][/center]
+"
+
+[node name="SendMessage" type="LineEdit" parent="LobbyScreenControl/MessagesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+placeholder_text = "Type message..."
+
 [connection signal="pressed" from="LoginScreen/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="LoginScreen/ConnectButton" to="." method="_on_connect_button_pressed"]
+[connection signal="text_submitted" from="LobbyScreenControl/MessagesContainer/SendMessage" to="." method="_on_send_message"]
