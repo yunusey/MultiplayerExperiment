@@ -1,12 +1,13 @@
 extends CanvasLayer
 
 signal request_lobby
+signal request_game
 signal change_local_ready_status
 signal request_send_message(message: String)
 
-@export var username_color: Color = Color(0.0, 0.0, 0.0, 1.0)
-
 var player_label: PackedScene = preload("res://Interface/PlayerLabel/PlayerLabel.tscn")
+
+var timer: Timer = Timer.new()
 
 enum PeerState {
 	CONNECTING,
@@ -18,6 +19,27 @@ var port: int = 25000
 var username: String = ""
 var peer_status: PeerState = PeerState.CONNECTING
 var is_ready: bool = false
+
+func _ready():
+	# Set up the timer that will be used to wait when everyone is ready.
+	# Basically, it will give 10 seconds for everyone to make sure that
+	# everyone is actually ready.
+	timer.connect("timeout", self._on_timer_timeout)
+	timer.wait_time = 3.
+	add_child(timer)
+
+func _process(_delta: float) -> void:
+	if timer.is_stopped():
+		var title: Label = $LobbyScreenControl/LobbyScreenScroll/LobbyScreen/PlayerLabelTitle
+		title.text = "Players"
+		return
+	
+	else:
+		var title: Label = $LobbyScreenControl/LobbyScreenScroll/LobbyScreen/PlayerLabelTitle
+		title.text = "Players ({time_left}s)".format({
+			"time_left": int(timer.time_left)
+		})
+
 
 func _on_connect_button_pressed():
 	$LoginScreen.hide()
@@ -40,11 +62,10 @@ func set_data(state: PeerState):
 func add_player(id: int, in_is_ready: bool, player_username: String):
 	if not id in Globals.players:
 		var label: HBoxContainer = player_label.instantiate()
+		var color: Color = Color(randf(), randf(), randf())
 		label.set_label(player_username, in_is_ready, id)
 
-		if id == multiplayer.get_unique_id():
-			# If this is the local player, change the color of their username
-			label.change_username_color(self.username_color)
+		label.change_label_color(color)
 
 		$LobbyScreenControl/LobbyScreenScroll/LobbyScreen.add_child(label)
 
@@ -52,7 +73,7 @@ func add_player(id: int, in_is_ready: bool, player_username: String):
 			"username": player_username,
 			"is_ready": in_is_ready,
 			"label": label,
-			"color": Color(randf(), randf(), randf())
+			"color": color
 		}
 
 	else:
@@ -69,6 +90,14 @@ func change_ready_status(in_is_ready: bool, in_id: int):
 	if in_id in Globals.players:
 		Globals.players[in_id]["label"].change_ready_status(in_is_ready)
 		Globals.players[in_id]["is_ready"] = in_is_ready
+	
+	var is_everyone_ready: bool = Globals.is_everyone_ready()
+	if is_everyone_ready:
+		# Then, start the timer!
+		timer.start()
+	
+	else:
+		timer.stop()
 
 func add_message(in_message: String, in_id: int):
 	var message: Globals.Message = Globals.Message.from({
@@ -97,3 +126,7 @@ func _unhandled_input(event):
 func _on_send_message(new_text: String) -> void:
 	$LobbyScreenControl/MessagesContainer/SendMessage.text = ""
 	request_send_message.emit(new_text)
+
+func _on_timer_timeout() -> void:
+	timer.stop()
+	request_game.emit()

@@ -1,6 +1,16 @@
 extends Node
 
 var players: Dictionary = {}
+
+func is_everyone_ready() -> bool:
+	# Check if everyone is ready in players
+	for player_id in players:
+		var player = players[player_id]
+		if !player["is_ready"]:
+			return false
+	
+	return true
+
 var username_color: Color
 # This is the color of the username of the local player.
 # It will be set by Interface once the program starts.
@@ -33,3 +43,5 @@ class Message:
 		})
 
 var messages: Array[Message] = []
+
+var bullet_damage: float = .2

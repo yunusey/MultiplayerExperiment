@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4csrb4ww8cdj"]
+
+[ext_resource type="Script" path="res://Game/Game.gd" id="1_5k1qt"]
+[ext_resource type="PackedScene" uid="uid://dpmc8ov2t756s" path="res://Background/Background.tscn" id="1_63kam"]
+[ext_resource type="PackedScene" uid="uid://bfpifw0vcpi6u" path="res://Game/GameInterface/GameInterface.tscn" id="3_1w1tr"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_5k1qt")
+
+[node name="Background" parent="." instance=ExtResource("1_63kam")]
+
+[node name="GameInterface" parent="." instance=ExtResource("3_1w1tr")]
+visible = false
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Players")
+
+[node name="Players" type="Node2D" parent="."]
