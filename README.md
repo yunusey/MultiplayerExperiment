@@ -1,5 +1,9 @@
 # MultiplayerExperiment
 
+<div align="center">
+	<img src="./icon.png" width="200" />
+</div>
+
 Welcome to MultiplayerExperiment, a Godot-based project exploring multiplayer functionalities. While still a work in progress, this repository demonstrates the potential of multiplayer implementation in Godot, despite some existing bugs and crashes.
 
 ## Video 🎥
