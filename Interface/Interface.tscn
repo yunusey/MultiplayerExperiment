@@ -1,10 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuf2jgmqhrjat"]
+[gd_scene load_steps=3 format=3 uid="uid://cuf2jgmqhrjat"]
 
 [ext_resource type="Script" path="res://Interface/Interface.gd" id="1_8dd7u"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxbq8"]
+bg_color = Color(0, 0.682353, 0.709804, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [node name="Interface" type="CanvasLayer"]
 script = ExtResource("1_8dd7u")
-username_color = Color(0, 0.384314, 0.411765, 1)
 
 [node name="LoginScreen" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -21,12 +27,11 @@ grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Username" type="TextEdit" parent="LoginScreen"]
+[node name="Username" type="LineEdit" parent="LoginScreen"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 placeholder_text = "Username"
-scroll_fit_content_height = true
 caret_blink = true
 
 [node name="ServerCredentialsContainer" type="HBoxContainer" parent="LoginScreen"]
@@ -34,21 +39,19 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Server" type="TextEdit" parent="LoginScreen/ServerCredentialsContainer"]
+[node name="Server" type="LineEdit" parent="LoginScreen/ServerCredentialsContainer"]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "127.0.0.1"
 placeholder_text = "Server"
-scroll_fit_content_height = true
 
-[node name="Port" type="TextEdit" parent="LoginScreen/ServerCredentialsContainer"]
+[node name="Port" type="LineEdit" parent="LoginScreen/ServerCredentialsContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "25000"
 placeholder_text = "Server"
-scroll_fit_content_height = true
 
 [node name="HostButton" type="Button" parent="LoginScreen"]
 layout_mode = 2
@@ -82,6 +85,13 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
+[node name="PlayerLabelTitle" type="Label" parent="LobbyScreenControl/LobbyScreenScroll/LobbyScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_mxbq8")
+text = "Players"
+horizontal_alignment = 1
+
 [node name="MessagesContainer" type="VBoxContainer" parent="LobbyScreenControl"]
 clip_contents = true
 layout_mode = 1
@@ -108,6 +118,7 @@ text = "[center][b]Messages[/b][/center]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 placeholder_text = "Type message..."
+caret_blink = true
 
 [connection signal="pressed" from="LoginScreen/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="LoginScreen/ConnectButton" to="." method="_on_connect_button_pressed"]

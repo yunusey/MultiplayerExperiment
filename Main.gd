@@ -45,6 +45,15 @@ func _on_interface_change_local_ready_status(in_is_ready: bool):
 		# If the sender is not the server, we send the ready status to the server.
 		notify_player_status.rpc_id(1, in_is_ready, multiplayer.get_unique_id())
 
+func _on_interface_request_game():
+	$Interface.hide()
+	$Game.initialize_game()
+	$Game.show()
+
+func _on_game_finished():
+	$Game.hide()
+	$Interface.show()
+
 @rpc("any_peer")
 func send_player_info(username: String, in_is_ready: bool, id: int):
 	# This method gets called each time a new player sends its
@@ -97,10 +106,9 @@ func connected_to_server():
 	send_player_info.rpc_id(1, $Interface.username, false, multiplayer.get_unique_id())
 	print("Connected to server " + str(multiplayer.get_unique_id()))
 
-func failed_connect(id: int):
-	print("Failed to connect to server " + str(id))
+func failed_connect():
+	print("Failed to connect to server ")
 
-func disconnected_from_server(id: int):
-	print("Disconnected from server " + str(id))
-
+func disconnected_from_server():
+	print("Disconnected from server ")
 

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dls4hqbimn45v"]
+
+[ext_resource type="Script" path="res://Game/Shooter/ShooterBody/ShooterBody.gd" id="1_arp0o"]
+[ext_resource type="StyleBox" uid="uid://b7yej2jfcd688" path="res://Game/ProgressBarStyle/BackgroundStyle.tres" id="2_swtwr"]
+[ext_resource type="StyleBox" uid="uid://jqlp6y7ktm1j" path="res://Game/ProgressBarStyle/FillStyle.tres" id="3_yjvxk"]
+[ext_resource type="Texture2D" uid="uid://d0hjthpewlorv" path="res://Externals/Shooter.png" id="4_rf1hm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u257t"]
+radius = 48.0
+
+[node name="ShooterBody" type="Area2D" groups=["players"]]
+script = ExtResource("1_arp0o")
+
+[node name="PlayerInterface" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerInterface"]
+offset_left = -40.0
+offset_top = 52.0
+offset_right = 40.0
+offset_bottom = 57.0
+rotation = -6.28319
+theme_override_styles/background = ExtResource("2_swtwr")
+theme_override_styles/fill = ExtResource("3_yjvxk")
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("4_rf1hm")
+offset = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u257t")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
