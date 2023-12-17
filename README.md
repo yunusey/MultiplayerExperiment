@@ -2,6 +2,9 @@
 
 Welcome to MultiplayerExperiment, a Godot-based project exploring multiplayer functionalities. While still a work in progress, this repository demonstrates the potential of multiplayer implementation in Godot, despite some existing bugs and crashes.
 
+## Video 🎥
+[![Watch the video](https://img.youtube.com/vi/VBpq_zx8DJI/maxresdefault.jpg)](https://youtu.be/VBpq_zx8DJI)
+
 ## Download 📥
 You can either download the repo, or just clone it:
 
