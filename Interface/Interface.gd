@@ -59,6 +59,12 @@ func set_data(state: PeerState):
 	username = $LoginScreen/Username.text
 	peer_status = state
 
+func set_winner(winner_id: int):
+	for id in Globals.players:
+		Globals.players[id]["label"].set_loser()
+	
+	Globals.players[winner_id]["label"].set_winner()
+
 func add_player(id: int, in_is_ready: bool, player_username: String):
 	if not id in Globals.players:
 		var label: HBoxContainer = player_label.instantiate()

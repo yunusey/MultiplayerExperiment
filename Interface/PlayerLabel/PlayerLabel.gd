@@ -18,3 +18,13 @@ func change_label_color(in_color: Color):
 	var new_stylebox_normal = $LabelContainer/Label.get("theme_override_styles/normal").duplicate()
 	new_stylebox_normal.bg_color = in_color
 	$LabelContainer/Label.set("theme_override_styles/normal", new_stylebox_normal)
+
+func set_winner():
+	$LabelContainer/Label.text = "{username} (W)".format({
+		"username": username
+	})
+
+func set_loser():
+	$LabelContainer/Label.text = "{username} (L)".format({
+		"username": username
+	})
