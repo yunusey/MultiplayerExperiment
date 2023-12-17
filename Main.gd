@@ -50,9 +50,10 @@ func _on_interface_request_game():
 	$Game.initialize_game()
 	$Game.show()
 
-func _on_game_finished():
+func _on_game_finished(winner_id: int):
 	$Game.hide()
 	$Interface.show()
+	$Interface.set_winner(winner_id)
 
 @rpc("any_peer")
 func send_player_info(username: String, in_is_ready: bool, id: int):

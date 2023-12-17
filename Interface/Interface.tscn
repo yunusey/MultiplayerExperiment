@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuf2jgmqhrjat"]
+[gd_scene load_steps=7 format=3 uid="uid://cuf2jgmqhrjat"]
 
 [ext_resource type="Script" path="res://Interface/Interface.gd" id="1_8dd7u"]
+[ext_resource type="FontFile" uid="uid://6rb6ls67ssh0" path="res://Externals/Fonts/TechnoRaceItalic-eZRWe.otf" id="2_aq2t6"]
+[ext_resource type="FontFile" uid="uid://cwh8mrj7syb3g" path="res://Externals/Fonts/Comfortaa-VariableFont_wght.ttf" id="3_5odo4"]
+[ext_resource type="FontFile" uid="uid://bprkrro62xk4o" path="res://Externals/Fonts/Comfortaa-Bold.ttf" id="4_pq0t8"]
+[ext_resource type="FontFile" uid="uid://bebhsp2setr5" path="res://Externals/Fonts/Exo2-Italic-VariableFont_wght.ttf" id="5_25c6u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxbq8"]
 bg_color = Color(0, 0.682353, 0.709804, 1)
@@ -30,6 +34,7 @@ alignment = 1
 [node name="Username" type="LineEdit" parent="LoginScreen"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 100
 placeholder_text = "Username"
 caret_blink = true
@@ -42,6 +47,7 @@ alignment = 1
 [node name="Server" type="LineEdit" parent="LoginScreen/ServerCredentialsContainer"]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 100
 text = "127.0.0.1"
 placeholder_text = "Server"
@@ -49,17 +55,20 @@ placeholder_text = "Server"
 [node name="Port" type="LineEdit" parent="LoginScreen/ServerCredentialsContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 100
 text = "25000"
 placeholder_text = "Server"
 
 [node name="HostButton" type="Button" parent="LoginScreen"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 150
 text = "Host Server"
 
 [node name="ConnectButton" type="Button" parent="LoginScreen"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 150
 text = "Connect Server"
 
@@ -87,13 +96,13 @@ alignment = 1
 
 [node name="PlayerLabelTitle" type="Label" parent="LobbyScreenControl/LobbyScreenScroll/LobbyScreen"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aq2t6")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_mxbq8")
 text = "Players"
 horizontal_alignment = 1
 
 [node name="MessagesContainer" type="VBoxContainer" parent="LobbyScreenControl"]
-clip_contents = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -101,10 +110,15 @@ anchor_right = 1.0
 offset_left = -800.0
 offset_bottom = 773.0
 grow_horizontal = 0
+theme_override_constants/separation = 30
 
 [node name="Messages" type="RichTextLabel" parent="LobbyScreenControl/MessagesContainer"]
 custom_minimum_size = Vector2(800, 800)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_5odo4")
+theme_override_fonts/bold_font = ExtResource("4_pq0t8")
+theme_override_fonts/italics_font = ExtResource("5_25c6u")
+theme_override_fonts/bold_italics_font = ExtResource("4_pq0t8")
 theme_override_font_sizes/normal_font_size = 40
 theme_override_font_sizes/bold_font_size = 90
 theme_override_font_sizes/italics_font_size = 40
@@ -113,9 +127,11 @@ theme_override_font_sizes/mono_font_size = 40
 bbcode_enabled = true
 text = "[center][b]Messages[/b][/center]
 "
+scroll_following = true
 
 [node name="SendMessage" type="LineEdit" parent="LobbyScreenControl/MessagesContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5odo4")
 theme_override_font_sizes/font_size = 80
 placeholder_text = "Type message..."
 caret_blink = true

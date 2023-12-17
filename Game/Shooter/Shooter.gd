@@ -5,8 +5,8 @@ signal died
 var bullet_scene: PackedScene = preload("res://Game/Bullet/Bullet.tscn")
 var is_dead: bool = false
 
-func set_data(in_id: int, in_lifetime: float, in_position: Vector2) -> void:
-	$ShooterBody.set_data(in_id, in_lifetime)
+func set_data(in_id: int, in_lifetime: float, in_position: Vector2, in_color: Color) -> void:
+	$ShooterBody.set_data(in_id, in_lifetime, in_color)
 	$ShooterBody.position = in_position
 	$Bullet.position = in_position
 	$Bullet.connect("bullet_destroyed", _on_bullet_destroyed)
@@ -33,9 +33,11 @@ func hide_self() -> void:
 	$Bullet.hide()
 	$Bullet/CollisionShape2D.call_deferred("set_disabled", true)
 	$ShooterBody/PlayerInterface/ProgressBar.visible = false
+	$ShooterBody/PlayerInterface/Username.visible = false
 
 func show_self() -> void:
 	$ShooterBody.show()
 	$Bullet.show()
 	$Bullet/CollisionShape2D.call_deferred("set_disabled", false)
 	$ShooterBody/PlayerInterface/ProgressBar.visible = true
+	$ShooterBody/PlayerInterface/Username.visible = true

@@ -1,6 +1,6 @@
 extends Node2D
 
-signal game_finished
+signal game_finished(winner_id: int)
 
 var shooter_scene: PackedScene = preload("res://Game/Shooter/Shooter.tscn")
 var bullet_scene: PackedScene = preload("res://Game/Bullet/Bullet.tscn")
@@ -22,7 +22,7 @@ func initialize_game() -> void:
 
 	for id in Globals.players:
 		var shooter: Node2D = shooter_scene.instantiate()
-		shooter.set_data(id, 1., Vector2(randf() * 1000, randf() * 1000))
+		shooter.set_data(id, 1., Vector2(randf() * 1000, randf() * 1000), Globals.players[id].color)
 		shooters[id] = shooter
 		$Players.add_child(shooter)
 	
@@ -57,12 +57,13 @@ func kill_player(id: int) -> void:
 	var alive_shooters: Array = get_alive_shooters()
 	if alive_shooters.size() == 1:
 		$GameInterface.visible = false
-		alive_shooters[0].hide_self()
-		game_finished.emit()
+		var winner_id = alive_shooters[0]
+		shooters[winner_id].hide_self()
+		game_finished.emit(winner_id)
 
 func get_alive_shooters() -> Array:
 	var alive_shooters: Array = []
 	for id in shooters:
 		if not shooters[id].is_dead:
-			alive_shooters.append(shooters[id])
+			alive_shooters.append(id)
 	return alive_shooters

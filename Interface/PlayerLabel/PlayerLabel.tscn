@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://eypq27ou0plq"]
+[gd_scene load_steps=8 format=3 uid="uid://eypq27ou0plq"]
 
 [ext_resource type="Script" path="res://Interface/PlayerLabel/PlayerLabel.gd" id="1_g07yj"]
 [ext_resource type="StyleBox" uid="uid://cbqdvtmwpyum4" path="res://Interface/PlayerLabel/PlayerLabel.tres" id="1_yuahh"]
 [ext_resource type="Shader" path="res://Interface/PlayerLabel/TextureRect.gdshader" id="2_8mp8a"]
 [ext_resource type="Texture2D" uid="uid://7h8d854o5jv4" path="res://Externals/CheckboxIcons/Checked.png" id="2_go01k"]
+[ext_resource type="FontFile" uid="uid://6rb6ls67ssh0" path="res://Externals/Fonts/TechnoRaceItalic-eZRWe.otf" id="2_lieop"]
 [ext_resource type="Texture2D" uid="uid://blilqv6upqxwp" path="res://Externals/CheckboxIcons/Unchecked.png" id="3_f7rtt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jic0e"]
@@ -33,6 +34,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_lieop")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = ExtResource("1_yuahh")
 text = "Something"
